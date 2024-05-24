@@ -36,21 +36,21 @@ build_config = {
         # Status.IGNORE: do nothing
         # Status.ENABLE: move font features to default ligature
         # Status.DISABLE: remove font features
-        "ss01": Status.IGNORE,  # == === != !==
-        "ss02": Status.IGNORE,  # [info] [trace] [debug] [warn] [error] [fatal] [vite]
+        "ss01": Status.ENABLE,  # == === != !== 
+        "ss02": Status.ENABLE,  # [info] [trace] [debug] [warn] [error] [fatal] [vite]
         "ss03": Status.IGNORE,  # __
         "ss04": Status.IGNORE,  # >= <=
-        "ss05": Status.IGNORE,  # {{ }}
+        "ss05": Status.ENABLE,  # {{ }}
         # ======
         # character variant:
         # Status.IGNORE: do nothing
         # Status.ENABLE: enable character variants by default
         # Status.DISABLE: remove character variants
-        "cv01": Status.IGNORE,  # @ # $ % & Q -> =>
+        "cv01": Status.ENABLE,  # @ # $ % & Q -> =>
         "cv02": Status.IGNORE,  # alt i
+        "cv04": Status.ENABLE,  # alt @ Q
         "cv03": Status.IGNORE,  # alt a
-        "cv04": Status.IGNORE,  # alt @
-        "zero": Status.IGNORE,  # alt 0
+        "zero": Status.ENABLE,  # alt 0
         # ======
     },
     # config for nerd font
