@@ -1,0 +1,17 @@
+Supplemental glyphs for this Maple Mono fork
+
+codicons.ttf contains only OpenAI (nf-cod-openai, U+EC81), plus .notdef.
+Source: Microsoft VS Code Codicons 0.0.45, as distributed in Nerd Fonts 3.5.1.
+Upstream project: https://github.com/microsoft/vscode-codicons
+Source font: https://raw.githubusercontent.com/ryanoasis/nerd-fonts/v3.5.1/src/glyphs/codicons/codicon.ttf
+Source SHA-256: 92d3aa2a915246b100de1b5397b3faae4c7cb9576ae054351b71eda8f20754cf
+License source: https://raw.githubusercontent.com/ryanoasis/nerd-fonts/v3.5.1/src/glyphs/codicons/LICENSE.txt
+
+The Codicons artwork is licensed under Creative Commons Attribution 4.0
+International (CC BY 4.0); see LICENSE-Codicons.txt.
+https://creativecommons.org/licenses/by/4.0/
+
+Modifications: subset to U+EC81 using FontTools 4.60.1. During the Maple
+build, the outline is scaled uniformly and centered in one terminal cell.
+Existing Maple glyphs are not replaced. No endorsement is implied;
+trademark rights are not granted by the artwork license.

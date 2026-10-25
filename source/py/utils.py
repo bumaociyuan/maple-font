@@ -7,6 +7,7 @@ from urllib.request import Request, urlopen
 from zipfile import ZIP_DEFLATED, ZipFile
 from fontTools.ttLib import TTFont, newTable
 from fontTools.merge import Merger
+from source.py.extra_glyphs import EXTRA_GLYPHS_DIR
 from source.py.task._utils import is_ci, default_weight_map
 
 
@@ -242,6 +243,9 @@ def archive_fonts(
                     file_path, path.relpath(file_path, source_file_or_dir_path)
                 )
         zip_file.write("OFL.txt", "LICENSE.txt")
+        if source_folder_name in ("NF", "NF-CN"):
+            for notice in sorted(EXTRA_GLYPHS_DIR.glob("*.txt")):
+                zip_file.write(notice, f"extra-glyphs/{notice.name}")
         if not source_file_or_dir_path.endswith("Variable"):
             zip_file.write(
                 build_config_path,

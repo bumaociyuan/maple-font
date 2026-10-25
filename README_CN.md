@@ -588,6 +588,33 @@ python build.py
 - 如果 `"nerd_font.propo"` 为 `true`，则添加 `--variable-width-glyphs`
 - 否则，如果 `"nerd_font.mono"` 为 `true`，则添加 `--mono`
 
+### 本 fork 的单图标补充
+
+本 fork 保留 7.9 和原有构建配置，不合并上游 8.0 beta，也不整体更新 Nerd Fonts。
+`source/extra-glyphs/codicons.ttf` 是 Nerd Fonts 3.5.1 中 Codicons 0.0.45 的小型子集，当前只包含 OpenAI `nf-cod-openai`（U+EC81，另有字体必需的 `.notdef`）。来源、校验值和 CC BY 4.0 许可见同目录的 `NOTICE.txt` / `LICENSE-Codicons.txt`；NF / NF-CN 压缩包会附带这些说明。
+
+构建 NF 时会自动读取 `source/extra-glyphs/*.ttf`，仅填补缺失码位，保留原有字形、连字和字形偏好。补充图标等比缩放并居中到一个终端字符格；NF-CN 会继承这些图标，`--no-nf` 的纯文字版本不受影响。不需要 FontForge，也不依赖本机安装的 fallback 字体。
+
+```sh
+uv venv --python 3.12
+uv pip install -r requirements.txt
+# 常规、粗体、斜体、粗斜体；沿用当前 config.json 的中文和 hinting 设置
+uv run --no-sync python build.py --least-styles --ttf-only --archive
+```
+
+这只生成 `fonts/` 下的字体，不会安装或替换系统字体。安装前保留旧版本；每台显示端需分别安装生成的字体。
+
+以后补其他图标时，从带有所需码位的 Nerd Fonts 字体中提取子集，放入 `source/extra-glyphs/`，并补充对应来源及许可。更新同一个子集文件时，`--unicodes` 要包含原有图标和新增图标的完整列表，避免删掉之前的补充。不要直接放入整套 Nerd Fonts 字体。
+
+例如重建当前 Codicons 子集（源文件和 SHA-256 见 `NOTICE.txt`）：
+
+```sh
+uv run --no-sync fonttools subset /path/to/codicon.ttf \
+  --unicodes=U+EC81 --glyph-names --name-IDs='*' --name-languages='*' \
+  --output-file=source/extra-glyphs/codicons.ttf
+uv run --no-sync python -m unittest discover -s tests -v
+```
+
 ### 预设
 
 如果您想要获得固定宽度的 Nerd Font 图标，只需要在 `config.json` 中设置 `"nerd_font.mono": true` 或者在构建脚本中添加 `--nf-mono` 参数即可。

@@ -13,6 +13,7 @@ from typing import Callable, Literal
 from fontTools.ttLib import TTFont, newTable
 from fontTools.feaLib.builder import addOpenTypeFeatures, addOpenTypeFeaturesFromString
 from ttfautohint import StemWidthMode, ttfautohint
+from source.py.extra_glyphs import add_extra_glyphs
 from source.py.transform import change_glyph_width_or_scale, smart_change_width
 from source.py.utils import (
     add_gasp,
@@ -1245,6 +1246,9 @@ def build_nf(
 ):
     print(f"👉 NerdFont{font_config.get_nf_suffix()} version for {f}")
     nf_font = get_ttfont(f, font_config, build_option)
+    added = add_extra_glyphs(nf_font)
+    if added:
+        print("   Extra glyphs: " + ", ".join(f"U+{code:04X}" for code in added))
 
     # format font name
     style_compact_nf = f.split("-")[-1].split(".")[0]
